@@ -75,6 +75,7 @@ commander
   .option('--no-headless', 'Chromium/Chrome runs in a window instead of headless mode')
   .option('--screenshot-type <type>', 'Output image format for screenshots, either png or jpeg')
   .option('--screenshot-quality <level>', 'The quality level for lossy screenshots', parseFloat)
+  .option('--overlap <count>', 'Overlap', parseInt, 0)
   .parse(process.argv);
 
 commander.url = commander.args[0] || 'index.html';

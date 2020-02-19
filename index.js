@@ -198,6 +198,17 @@ module.exports = function (config) {
             }
           });
         }
+
+        // Overlapping
+        for (let i = 0; i < config.overlap; i++) {
+          addMarker({
+            time: Math.max(delayMs - (config.overlap - i) * 1000.0 / config.fps, 0),
+            type: 'Only Animate',
+            data: { frameCount: -1 }
+          });
+          markerId++;
+        }
+
         for (let i = 1; i <= framesToCapture; i++) {
           addMarker({
             time: delayMs + frameNumToTime(i, framesToCapture),
@@ -210,7 +221,7 @@ module.exports = function (config) {
         // run 'requestAnimationFrame' early on, just in case if there
         // is initialization code inside of it
         var addAnimationGapThreshold = 100;
-        var addAnimationFrameTime = 20;
+        var addAnimationFrameTime = 1000.0 / config.fps;
         if (captureTimes.length && captureTimes[0] > addAnimationGapThreshold) {
           addMarker({
             time: addAnimationFrameTime,
